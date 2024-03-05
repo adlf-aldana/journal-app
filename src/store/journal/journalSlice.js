@@ -6,14 +6,14 @@ export const journalSlice = createSlice({
     isSaving: false,
     messageSaved: "",
     notes: [],
-    //active: null
-    active: {
-      id: "ABC123",
-      title: "",
-      body: "",
-      date: 1234567,
-      imageUrls: [], // htts://foto1.jpg, htts://foto2.jpg, htts://foto3.jpg
-    },
+    active: null,
+    //active: {
+    //  id: "ABC123",
+    //  title: "",
+    //  body: "",
+    //  date: 1234567,
+    //  imageUrls: [], // htts://foto1.jpg, htts://foto2.jpg, htts://foto3.jpg
+    //},
   },
   reducers: {
     savingNewNote: (state) => {
@@ -29,8 +29,20 @@ export const journalSlice = createSlice({
     setNotes: (state, action) => {
       state.notes = action.payload;
     },
-    setSaving: (state) => {},
-    updateNote: (state, action) => {},
+    setSaving: (state) => {
+      state.isSaving = true;
+      // TODO: mensaje de error...
+    },
+    updateNote: (state, action) => {
+      state.isSaving = true;
+      state.notes = state.notes.map((note) => {
+        if (note.id === action.payload.id) {
+          return action.payload;
+        }
+        return note;
+      });
+      // TODO: Mostrar mensajes de errores
+    },
     deleteNoteById: (state, action) => {},
   },
 });
