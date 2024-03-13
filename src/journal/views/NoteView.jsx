@@ -6,7 +6,7 @@ import { useForm } from "../../hooks/useForm";
 import { useMemo, useRef } from "react";
 import { useEffect } from "react";
 import { setActiveNote } from "../../store/journal/journalSlice";
-import { startSaveNote } from "../../store/journal";
+import { startSaveNote, startUploadingFiles } from "../../store/journal";
 import Swal from "sweetalert2";
 import "sweetalert2/dist/sweetalert2.css";
 
@@ -42,7 +42,7 @@ export const NoteView = () => {
   const onFileInputChange = ({ target }) => {
     if (target.files === 0) return;
 
-    //dispatch(startUploadingFiles(target.files));
+    dispatch(startUploadingFiles(target.files));
   };
 
   return (
