@@ -12,7 +12,7 @@ export const journalSlice = createSlice({
     //  title: "",
     //  body: "",
     //  date: 1234567,
-    //  imageUrls: [], // htts://foto1.jpg, htts://foto2.jpg, htts://foto3.jpg
+    // imageUrls: [], // htts://foto1.jpg, htts://foto2.jpg, htts://foto3.jpg
     //},
   },
   reducers: {
@@ -44,6 +44,10 @@ export const journalSlice = createSlice({
       });
       state.messageSaved = `${action.payload.title}, actualizada correctamente`;
     },
+    setPhotosToActiveNote: (state, action) => {
+      state.active.imageUrls = [...state.active.imageUrls, ...action.payload];
+      state.isSaving = false;
+    },
     deleteNoteById: (state, action) => {},
   },
 });
@@ -56,4 +60,5 @@ export const {
   updateNote,
   deleteNoteById,
   savingNewNote,
+  setPhotosToActiveNote,
 } = journalSlice.actions;
