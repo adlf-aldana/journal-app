@@ -54,11 +54,11 @@ export const journalSlice = createSlice({
 
 export const {
   addNewEmptyNote,
-  setActiveNote,
-  setNotes,
-  setSaving,
-  updateNote,
   deleteNoteById,
   savingNewNote,
+  setActiveNote,
+  setNotes,
   setPhotosToActiveNote,
+  setSaving,
+  updateNote,
 } = journalSlice.actions;

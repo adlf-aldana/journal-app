@@ -51,7 +51,7 @@ export const startSaveNote = () => {
     const { active: note } = getState().journal;
     const noteToFireStore = { ...note };
     delete noteToFireStore.id;
-    delete noteToFireStore.imageUrls;
+
     const docRef = doc(FirebaseDB, `${uid}/journal/notes/${note.id}`);
     await setDoc(docRef, noteToFireStore, { merge: true });
 
@@ -62,7 +62,6 @@ export const startSaveNote = () => {
 export const startUploadingFiles = (files = []) => {
   return async (dispatch) => {
     dispatch(setSaving());
-
     // await fileUpload(files[0]);
     const fileUploadPromises = [];
 
@@ -72,6 +71,7 @@ export const startUploadingFiles = (files = []) => {
 
     const photosUrls = await Promise.all(fileUploadPromises);
 
+    console.log(photosUrls);
     dispatch(setPhotosToActiveNote(photosUrls));
   };
 };
