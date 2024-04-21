@@ -6,8 +6,15 @@ import { getEnvironments } from "../helpers/getEnvironments";
 
 // acceso a las variables de entorno
 // console.log(import.meta.env);
-const env = getEnvironments();
-console.log(env);
+const {
+  VITE_APIKEY,
+  VITE_AUTHDOMAIN,
+  VITE_PROJECTID,
+  VITE_STORAGEBUCKET,
+  VITE_MESSAGINGSENDERID,
+  VITE_APPID,
+} = getEnvironments();
+// console.log(env);
 
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -24,14 +31,24 @@ console.log(env);
 // };
 
 // TESTING
+// const firebaseConfig = {
+//   apiKey: "AIzaSyDPhJD-92zsEXVP857uZNzgnoDGuBZVU7A",
+//   authDomain: "react-cursos-test-41da8.firebaseapp.com",
+//   projectId: "react-cursos-test-41da8",
+//   storageBucket: "react-cursos-test-41da8.appspot.com",
+//   messagingSenderId: "898671245126",
+//   appId: "1:898671245126:web:7d27b77c4beec6bf121747",
+// };
+
 const firebaseConfig = {
-  apiKey: "AIzaSyDPhJD-92zsEXVP857uZNzgnoDGuBZVU7A",
-  authDomain: "react-cursos-test-41da8.firebaseapp.com",
-  projectId: "react-cursos-test-41da8",
-  storageBucket: "react-cursos-test-41da8.appspot.com",
-  messagingSenderId: "898671245126",
-  appId: "1:898671245126:web:7d27b77c4beec6bf121747",
+  apiKey: VITE_APIKEY,
+  authDomain: VITE_AUTHDOMAIN,
+  projectId: VITE_PROJECTID,
+  storageBucket: VITE_STORAGEBUCKET,
+  messagingSenderId: VITE_MESSAGINGSENDERID,
+  appId: VITE_APPID,
 };
+console.log(firebaseConfig);
 
 // Initialize Firebase
 export const FirebaseApp = initializeApp(firebaseConfig);
