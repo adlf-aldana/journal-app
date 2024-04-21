@@ -42,6 +42,7 @@ export const LoginPage = () => {
   return (
     <AuthLayout title="Login">
       <form
+        aria-label="submit-form"
         onSubmit={onSubmit}
         className="animate__animated animate__fadeIn animate__fastet"
       >
@@ -66,6 +67,9 @@ export const LoginPage = () => {
               name="password"
               value={password}
               onChange={onInputChange}
+              inputProps={{
+                "data-testid": "password",
+              }}
             />
           </Grid>
 
