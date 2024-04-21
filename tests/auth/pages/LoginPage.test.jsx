@@ -1,14 +1,23 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { authSlice, startGoogleSignIn } from "../../../src/store/auth";
-import { Provider } from "react-redux";
+import {
+  authSlice,
+  startGoogleSignIn,
+  startLoginWithEmailPassword,
+} from "../../../src/store/auth";
+import { Provider, useDispatch } from "react-redux";
 import { LoginPage } from "../../../src/auth/pages/LoginPage";
 import { MemoryRouter } from "react-router-dom";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { notAuthenticatedState } from "../../fixtures/authFixtures";
 
 const mockStartGoogleSignIn = jest.fn();
+const mockStartLoginWithEmailPassword = jest.fn();
+
 jest.mock("../../../src/store/auth/thunks.js", () => ({
   startGoogleSignIn: () => mockStartGoogleSignIn,
+  startLoginWithEmailPassword: ({ email, password }) => {
+    return () => mockStartLoginWithEmailPassword({ email, password });
+  },
 }));
 
 const store = configureStore({
@@ -20,7 +29,14 @@ const store = configureStore({
   },
 });
 
+jest.mock("react-redux", () => ({
+  ...jest.requireActual("react-redux"),
+  useDispatch: () => (fn) => fn(),
+}));
+
 describe("Pruebas en <LoginPage />", () => {
+  beforeEach(() => jest.clearAllMocks());
+
   test("debe de mostrar el componente correctamente", () => {
     render(
       <Provider store={store}>
@@ -68,5 +84,10 @@ describe("Pruebas en <LoginPage />", () => {
 
     const loginForm = screen.getByLabelText("submit-form");
     fireEvent.submit(loginForm);
+
+    expect(mockStartLoginWithEmailPassword).toHaveBeenCalledWith({
+      email: email,
+      password: password,
+    });
   });
 });
